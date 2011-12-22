@@ -1,0 +1,1176 @@
+make -f /home/earthbound/.samurai/kernel/Makefile silentoldconfig
+make -f scripts/Makefile.build obj=scripts/basic
+rm -f .tmp_quiet_recordmcount
+mkdir -p include/linux include/config
+make -f scripts/Makefile.build obj=scripts/kconfig silentoldconfig
+mkdir -p include/generated
+scripts/kconfig/conf -s arch/arm/Kconfig
+drivers/video/samsung_mipi/Kconfig:66:warning: choice value used outside its choice group
+rm -f include/config/kernel.release
+set -e; : '  CHK     include/linux/version.h'; mkdir -p include/linux/; 	(echo \#define LINUX_VERSION_CODE 132643; echo '#define KERNEL_VERSION(a,b,c) (((a) << 16) + ((b) << 8) + (c))';) < /home/earthbound/.samurai/kernel/Makefile > include/linux/version.h.tmp; if [ -r include/linux/version.h ] && cmp -s include/linux/version.h include/linux/version.h.tmp; then rm -f include/linux/version.h.tmp; else : '  UPD     include/linux/version.h'; mv -f include/linux/version.h.tmp include/linux/version.h; fi
+echo "2.6.35.7$(/bin/sh /home/earthbound/.samurai/kernel/scripts/setlocalversion /home/earthbound/.samurai/kernel)" > include/config/kernel.release
+set -e; : '  CHK     include/generated/kernelversion.h'; mkdir -p include/generated/; 	(echo \#define KERNELVERSION \"2.6.35.7\";) < /home/earthbound/.samurai/kernel/Makefile > include/generated/kernelversion.h.tmp; if [ -r include/generated/kernelversion.h ] && cmp -s include/generated/kernelversion.h include/generated/kernelversion.h.tmp; then rm -f include/generated/kernelversion.h.tmp; else : '  UPD     include/generated/kernelversion.h'; mv -f include/generated/kernelversion.h.tmp include/generated/kernelversion.h; fi
+make -f scripts/Makefile.build obj=scripts/basic
+(cat /dev/null; ) > scripts/basic/modules.order
+rm -f .tmp_quiet_recordmcount
+make -f scripts/Makefile.modbuiltin obj=init
+make -f scripts/Makefile.modbuiltin obj=usr
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > init/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=arch/arm/kernel
+make -f scripts/Makefile.modbuiltin obj=arch/arm/mm
+make -f scripts/Makefile.modbuiltin obj=arch/arm/common
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > usr/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=arch/arm/mach-s5pv210
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > arch/arm/kernel/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=arch/arm/plat-s5p
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > arch/arm/common/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=arch/arm/plat-samsung
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > arch/arm/mm/modules.builtin
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > arch/arm/plat-s5p/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=arch/arm/vfp
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > arch/arm/mach-s5pv210/modules.builtin
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > arch/arm/plat-samsung/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=kernel
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > arch/arm/vfp/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=mm
+make -f scripts/Makefile.modbuiltin obj=kernel/irq
+make -f scripts/Makefile.modbuiltin obj=kernel/power
+make -f scripts/Makefile.modbuiltin obj=kernel/time
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > kernel/irq/modules.builtin
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > kernel/time/modules.builtin
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > kernel/power/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=fs
+(for m in kernel/slow-work.ko; do echo kernel/$m; done;	\
+	cat /dev/null kernel/irq/modules.builtin kernel/power/modules.builtin kernel/time/modules.builtin) > kernel/modules.builtin
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > mm/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=ipc
+make -f scripts/Makefile.modbuiltin obj=fs/cifs
+make -f scripts/Makefile.modbuiltin obj=fs/cramfs
+make -f scripts/Makefile.modbuiltin obj=fs/debugfs
+(for m in fs/cifs/cifs.ko; do echo kernel/$m; done;	\
+	cat /dev/null ) > fs/cifs/modules.builtin
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > fs/debugfs/modules.builtin
+(for m in fs/cramfs/cramfs.ko; do echo kernel/$m; done;	\
+	cat /dev/null ) > fs/cramfs/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=fs/devpts
+make -f scripts/Makefile.modbuiltin obj=fs/ext2
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > fs/devpts/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=fs/ext4
+make -f scripts/Makefile.modbuiltin obj=security
+(for m in fs/ext2/ext2.ko; do echo kernel/$m; done;	\
+	cat /dev/null ) > fs/ext2/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=fs/fat
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > ipc/modules.builtin
+(for m in fs/ext4/ext4.ko; do echo kernel/$m; done;	\
+	cat /dev/null ) > fs/ext4/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=fs/fuse
+(for m in fs/fat/fat.ko fs/fat/vfat.ko fs/fat/msdos.ko; do echo kernel/$m; done;	\
+	cat /dev/null ) > fs/fat/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=fs/jbd2
+(for m in fs/fuse/fuse.ko; do echo kernel/$m; done;	\
+	cat /dev/null ) > fs/fuse/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=fs/nls
+make -f scripts/Makefile.modbuiltin obj=fs/notify
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > security/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=crypto
+(for m in fs/jbd2/jbd2.ko; do echo kernel/$m; done;	\
+	cat /dev/null ) > fs/jbd2/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=fs/partitions
+make -f scripts/Makefile.modbuiltin obj=fs/notify/dnotify
+(for m in fs/nls/nls_base.ko fs/nls/nls_cp437.ko fs/nls/nls_ascii.ko fs/nls/nls_iso8859-1.ko fs/nls/nls_utf8.ko; do echo kernel/$m; done;	\
+	cat /dev/null ) > fs/nls/modules.builtin
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > fs/partitions/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=fs/proc
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > fs/notify/dnotify/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=fs/notify/inotify
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > fs/notify/inotify/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=block
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > fs/proc/modules.builtin
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null fs/notify/dnotify/modules.builtin fs/notify/inotify/modules.builtin) > fs/notify/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=fs/quota
+make -f scripts/Makefile.modbuiltin obj=fs/ramfs
+(for m in crypto/crypto.ko crypto/crypto_wq.ko crypto/crypto_algapi.ko crypto/aead.ko crypto/crypto_blkcipher.ko crypto/chainiv.ko crypto/eseqiv.ko crypto/crypto_hash.ko crypto/pcompress.ko crypto/cryptomgr.ko crypto/hmac.ko crypto/md5.ko crypto/sha1_generic.ko crypto/ecb.ko crypto/cbc.ko crypto/des_generic.ko crypto/twofish.ko crypto/twofish_common.ko crypto/aes_generic.ko crypto/arc4.ko crypto/deflate.ko crypto/crc32c.ko crypto/authenc.ko crypto/rng.ko crypto/krng.ko; do echo kernel/$m; done;	\
+	cat /dev/null ) > crypto/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=fs/romfs
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > fs/ramfs/modules.builtin
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > fs/quota/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=fs/sysfs
+make -f scripts/Makefile.modbuiltin obj=fs/sysv
+(for m in fs/romfs/romfs.ko; do echo kernel/$m; done;	\
+	cat /dev/null ) > fs/romfs/modules.builtin
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > fs/sysfs/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=drivers
+(for m in fs/sysv/sysv.ko; do echo kernel/$m; done;	\
+	cat /dev/null ) > fs/sysv/modules.builtin
+(for m in fs/binfmt_misc.ko; do echo kernel/$m; done;	\
+	cat /dev/null fs/cifs/modules.builtin fs/cramfs/modules.builtin fs/debugfs/modules.builtin fs/devpts/modules.builtin fs/ext2/modules.builtin fs/ext4/modules.builtin fs/fat/modules.builtin fs/fuse/modules.builtin fs/jbd2/modules.builtin fs/nls/modules.builtin fs/notify/modules.builtin fs/partitions/modules.builtin fs/proc/modules.builtin fs/quota/modules.builtin fs/ramfs/modules.builtin fs/romfs/modules.builtin fs/sysfs/modules.builtin fs/sysv/modules.builtin) > fs/modules.builtin
+(for m in block/deadline-iosched.ko block/cfq-iosched.ko block/bfq-iosched.ko block/sio-iosched.ko block/vr-iosched.ko; do echo kernel/$m; done;	\
+	cat /dev/null ) > block/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=sound
+make -f scripts/Makefile.modbuiltin obj=drivers/auxdisplay
+make -f scripts/Makefile.modbuiltin obj=drivers/base
+make -f scripts/Makefile.modbuiltin obj=drivers/block
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > drivers/auxdisplay/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=drivers/base/power
+(for m in drivers/block/brd.ko drivers/block/loop.ko; do echo kernel/$m; done;	\
+	cat /dev/null ) > drivers/block/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=drivers/bluetooth
+make -f scripts/Makefile.modbuiltin obj=drivers/cdrom
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > drivers/base/power/modules.builtin
+(for m in drivers/base/firmware_class.ko; do echo kernel/$m; done;	\
+	cat /dev/null drivers/base/power/modules.builtin) > drivers/base/modules.builtin
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > drivers/cdrom/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=sound/arm
+make -f scripts/Makefile.modbuiltin obj=drivers/char
+make -f scripts/Makefile.modbuiltin obj=drivers/clocksource
+(for m in drivers/bluetooth/hci_uart.ko; do echo kernel/$m; done;	\
+	cat /dev/null ) > drivers/bluetooth/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=drivers/cpufreq
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > sound/arm/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=sound/atmel
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > drivers/clocksource/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=drivers/char/hw_random
+make -f scripts/Makefile.modbuiltin obj=drivers/cpuidle
+(for m in drivers/cpufreq/cpufreq_stats.ko drivers/cpufreq/cpufreq_performance.ko drivers/cpufreq/cpufreq_powersave.ko drivers/cpufreq/cpufreq_userspace.ko drivers/cpufreq/cpufreq_ondemand.ko drivers/cpufreq/cpufreq_conservative.ko drivers/cpufreq/cpufreq_interactive.ko drivers/cpufreq/cpufreq_interactivex.ko drivers/cpufreq/cpufreq_smartass.ko drivers/cpufreq/cpufreq_smartass2.ko drivers/cpufreq/cpufreq_savagedzen.ko drivers/cpufreq/cpufreq_intellidemand.ko drivers/cpufreq/cpufreq_lagfree.ko drivers/cpufreq/freq_table.ko; do echo kernel/$m; done;	\
+	cat /dev/null ) > drivers/cpufreq/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=drivers/crypto
+(for m in drivers/char/hw_random/rng-core.ko; do echo kernel/$m; done;	\
+	cat /dev/null ) > drivers/char/hw_random/modules.builtin
+(for m in drivers/char/apm-emulation.ko; do echo kernel/$m; done;	\
+	cat /dev/null drivers/char/hw_random/modules.builtin) > drivers/char/modules.builtin
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > sound/atmel/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=drivers/firmware
+make -f scripts/Makefile.modbuiltin obj=drivers/cpuidle/governors
+make -f scripts/Makefile.modbuiltin obj=sound/core
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > drivers/crypto/modules.builtin
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > drivers/cpuidle/governors/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=drivers/gpio
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null drivers/cpuidle/governors/modules.builtin) > drivers/cpuidle/modules.builtin
+(for m in sound/core/snd.ko sound/core/snd-timer.ko sound/core/snd-pcm.ko sound/core/snd-page-alloc.ko; do echo kernel/$m; done;	\
+	cat /dev/null ) > sound/core/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=drivers/gpu
+make -f scripts/Makefile.modbuiltin obj=sound/drivers
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > drivers/firmware/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=drivers/i2c
+make -f scripts/Makefile.modbuiltin obj=drivers/gpu/drm
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > drivers/gpio/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=drivers/gpu/drm/i2c
+make -f scripts/Makefile.modbuiltin obj=drivers/idle
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > drivers/idle/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=drivers/i2c/algos
+make -f scripts/Makefile.modbuiltin obj=drivers/ieee1394
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > drivers/gpu/drm/i2c/modules.builtin
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null drivers/gpu/drm/i2c/modules.builtin) > drivers/gpu/drm/modules.builtin
+(for m in drivers/i2c/algos/i2c-algo-bit.ko; do echo kernel/$m; done;	\
+	cat /dev/null ) > drivers/i2c/algos/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=drivers/gpu/pvr
+make -f scripts/Makefile.modbuiltin obj=drivers/i2c/busses
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > drivers/ieee1394/modules.builtin
+(for m in drivers/i2c/busses/i2c-gpio.ko drivers/i2c/busses/i2c-s3c2410.ko; do echo kernel/$m; done;	\
+	cat /dev/null ) > drivers/i2c/busses/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=drivers/ieee802154
+(for m in drivers/i2c/i2c-core.ko drivers/i2c/i2c-dev.ko; do echo kernel/$m; done;	\
+	cat /dev/null drivers/i2c/algos/modules.builtin drivers/i2c/busses/modules.builtin) > drivers/i2c/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=sound/i2c
+make -f scripts/Makefile.modbuiltin obj=sound/drivers/mpu401
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > sound/drivers/mpu401/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=sound/i2c/other
+make -f scripts/Makefile.modbuiltin obj=sound/drivers/opl3
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > sound/drivers/opl3/modules.builtin
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > sound/i2c/other/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=sound/drivers/opl4
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null sound/i2c/other/modules.builtin) > sound/i2c/modules.builtin
+(for m in drivers/gpu/pvr/pvrsrvkm.ko; do echo kernel/$m; done;	\
+	cat /dev/null ) > drivers/gpu/pvr/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=sound/drivers/pcsp
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > sound/drivers/opl4/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=drivers/gpu/vga
+make -f scripts/Makefile.modbuiltin obj=sound/drivers/vx
+(for m in ; do echo kernel/$m; done;	\
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > sound/drivers/pcsp/modules.builtin
+	cat /dev/null ) > sound/drivers/vx/modules.builtin
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > drivers/ieee802154/modules.builtin
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > drivers/gpu/vga/modules.builtin
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null sound/drivers/mpu401/modules.builtin sound/drivers/opl3/modules.builtin sound/drivers/opl4/modules.builtin sound/drivers/pcsp/modules.builtin sound/drivers/vx/modules.builtin) > sound/drivers/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=drivers/input
+make -f scripts/Makefile.modbuiltin obj=firmware
+make -f scripts/Makefile.modbuiltin obj=sound/isa
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null drivers/gpu/drm/modules.builtin drivers/gpu/pvr/modules.builtin drivers/gpu/vga/modules.builtin) > drivers/gpu/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=drivers/input/serio
+make -f scripts/Makefile.modbuiltin obj=sound/isa/ad1816a
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > sound/isa/ad1816a/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=sound/isa/ad1848
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > sound/isa/ad1848/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=drivers/input/keyboard
+make -f scripts/Makefile.modbuiltin obj=sound/isa/cs423x
+(for m in drivers/input/serio/serio.ko drivers/input/serio/serport.ko drivers/input/serio/libps2.ko; do echo kernel/$m; done;	\
+	cat /dev/null ) > drivers/input/serio/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=sound/mips
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > sound/isa/cs423x/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=sound/isa/es1688
+(for m in drivers/input/keyboard/atkbd.ko drivers/input/keyboard/cypress-touchkey.ko; do echo kernel/$m; done;	\
+	cat /dev/null ) > drivers/input/keyboard/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=drivers/input/misc
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > sound/mips/modules.builtin
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > sound/isa/es1688/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=sound/isa/gus
+make -f scripts/Makefile.modbuiltin obj=sound/parisc
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > sound/isa/gus/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=sound/isa/msnd
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > sound/isa/msnd/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=sound/isa/opti9xx
+(for m in drivers/input/misc/k3g.ko drivers/input/misc/bma023.ko drivers/input/misc/yas529.ko drivers/input/misc/orientation.ko drivers/input/misc/gpio_event.ko drivers/input/misc/gpio_matrix.ko drivers/input/misc/gpio_input.ko drivers/input/misc/gpio_output.ko drivers/input/misc/gpio_axis.ko drivers/input/misc/keychord.ko drivers/input/misc/uinput.ko drivers/input/misc/gp2a.ko; do echo kernel/$m; done;	\
+	cat /dev/null ) > drivers/input/misc/modules.builtin
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > sound/isa/opti9xx/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=sound/isa/sb
+make -f scripts/Makefile.modbuiltin obj=drivers/input/touchscreen
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > sound/isa/sb/modules.builtin
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > sound/parisc/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=sound/isa/wavefront
+make -f scripts/Makefile.modbuiltin obj=sound/pci
+make -f scripts/Makefile.modbuiltin obj=sound/pci/ac97
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > sound/isa/wavefront/modules.builtin
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > sound/pci/ac97/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=sound/isa/wss
+make -f scripts/Makefile.modbuiltin obj=sound/pci/ali5451
+(for m in drivers/input/touchscreen/qt602240.ko; do echo kernel/$m; done;	\
+	cat /dev/null ) > drivers/input/touchscreen/modules.builtin
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > sound/isa/wss/modules.builtin
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > sound/pci/ali5451/modules.builtin
+(for m in drivers/input/input-core.ko drivers/input/mousedev.ko drivers/input/evdev.ko; do echo kernel/$m; done;	\
+	cat /dev/null drivers/input/keyboard/modules.builtin drivers/input/misc/modules.builtin drivers/input/touchscreen/modules.builtin) > drivers/input/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=sound/pci/asihpi
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null sound/isa/ad1816a/modules.builtin sound/isa/ad1848/modules.builtin sound/isa/cs423x/modules.builtin sound/isa/es1688/modules.builtin sound/isa/gus/modules.builtin sound/isa/msnd/modules.builtin sound/isa/opti9xx/modules.builtin sound/isa/sb/modules.builtin sound/isa/wavefront/modules.builtin sound/isa/wss/modules.builtin) > sound/isa/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=drivers/leds
+make -f scripts/Makefile.modbuiltin obj=sound/pci/au88x0
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > firmware/modules.builtin
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > sound/pci/asihpi/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=sound/pci/aw2
+make -f scripts/Makefile.modbuiltin obj=net
+(for m in drivers/leds/led-class.ko drivers/leds/leds-gpio.ko drivers/leds/ledtrig-timer.ko drivers/leds/ledtrig-default-on.ko drivers/leds/ledtrig-notification.ko; do echo kernel/$m; done;	\
+	cat /dev/null ) > drivers/leds/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=drivers/level
+(for m in ; do echo kernel/$m; done;	\
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > sound/pci/aw2/modules.builtin
+	cat /dev/null ) > sound/pci/au88x0/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=sound/pci/ca0106
+make -f scripts/Makefile.modbuiltin obj=sound/pci/cs46xx
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > drivers/level/modules.builtin
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > sound/pci/ca0106/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=drivers/lguest
+make -f scripts/Makefile.modbuiltin obj=sound/pci/cs5535audio
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > drivers/lguest/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=drivers/macintosh
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > sound/pci/cs46xx/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=drivers/md
+make -f scripts/Makefile.modbuiltin obj=net/802
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > sound/pci/cs5535audio/modules.builtin
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > drivers/macintosh/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=sound/pci/ctxfi
+(for m in drivers/md/dm-mod.ko drivers/md/dm-crypt.ko; do echo kernel/$m; done;	\
+	cat /dev/null ) > drivers/md/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=drivers/media
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > sound/pci/ctxfi/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=net/bluetooth
+make -f scripts/Makefile.modbuiltin obj=sound/pci/echoaudio
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > sound/pci/echoaudio/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=sound/pci/emu10k1
+make -f scripts/Makefile.modbuiltin obj=drivers/media/IR
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > sound/pci/emu10k1/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=sound/pci/hda
+make -f scripts/Makefile.modbuiltin obj=net/bluetooth/rfcomm
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > net/802/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=net/core
+make -f scripts/Makefile.modbuiltin obj=drivers/media/IR/keymaps
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > net/core/modules.builtin
+(for m in net/bluetooth/rfcomm/rfcomm.ko; do echo kernel/$m; done;	\
+	cat /dev/null ) > net/bluetooth/rfcomm/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=net/ethernet
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > sound/pci/hda/modules.builtin
+(for m in net/bluetooth/bluetooth.ko net/bluetooth/l2cap.ko net/bluetooth/sco.ko; do echo kernel/$m; done;	\
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null net/bluetooth/rfcomm/modules.builtin) > net/bluetooth/modules.builtin
+	cat /dev/null ) > drivers/media/IR/keymaps/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=sound/pci/ice1712
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null drivers/media/IR/keymaps/modules.builtin) > drivers/media/IR/modules.builtin
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > net/ethernet/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=net/ieee802154
+make -f scripts/Makefile.modbuiltin obj=net/ipv4
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > net/ieee802154/modules.builtin
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > sound/pci/ice1712/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=drivers/media/common
+make -f scripts/Makefile.modbuiltin obj=net/ipv4/netfilter
+make -f scripts/Makefile.modbuiltin obj=sound/pci/korg1212
+make -f scripts/Makefile.modbuiltin obj=net/ipv6
+make -f scripts/Makefile.modbuiltin obj=drivers/media/common/tuners
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > sound/pci/korg1212/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=net/ipv6/netfilter
+make -f scripts/Makefile.modbuiltin obj=sound/pci/lx6464es
+(for m in net/ipv4/netfilter/nf_conntrack_ipv4.ko net/ipv4/netfilter/nf_nat.ko net/ipv4/netfilter/nf_defrag_ipv4.ko net/ipv4/netfilter/nf_nat_amanda.ko net/ipv4/netfilter/nf_nat_ftp.ko net/ipv4/netfilter/nf_nat_h323.ko net/ipv4/netfilter/nf_nat_irc.ko net/ipv4/netfilter/nf_nat_pptp.ko net/ipv4/netfilter/nf_nat_sip.ko net/ipv4/netfilter/nf_nat_tftp.ko net/ipv4/netfilter/nf_nat_proto_dccp.ko net/ipv4/netfilter/nf_nat_proto_gre.ko net/ipv4/netfilter/nf_nat_proto_udplite.ko net/ipv4/netfilter/nf_nat_proto_sctp.ko net/ipv4/netfilter/ip_tables.ko net/ipv4/netfilter/iptable_filter.ko net/ipv4/netfilter/iptable_nat.ko net/ipv4/netfilter/ipt_addrtype.ko net/ipv4/netfilter/ipt_ah.ko net/ipv4/netfilter/ipt_ecn.ko net/ipv4/netfilter/ipt_LOG.ko net/ipv4/netfilter/ipt_MASQUERADE.ko net/ipv4/netfilter/ipt_NETMAP.ko net/ipv4/netfilter/ipt_REDIRECT.ko net/ipv4/netfilter/ipt_REJECT.ko net/ipv4/netfilter/arp_tables.ko net/ipv4/netfilter/arpt_mangle.ko net/ipv4/netfilter/arptable_filter.ko; do echo kernel/$m; done;	\
+	cat /dev/null ) > net/ipv4/netfilter/modules.builtin
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > net/ipv6/netfilter/modules.builtin
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > sound/pci/lx6464es/modules.builtin
+(for m in drivers/media/common/tuners/tuner-xc2028.ko drivers/media/common/tuners/tuner-simple.ko drivers/media/common/tuners/tuner-types.ko drivers/media/common/tuners/mt20xx.ko drivers/media/common/tuners/tda8290.ko drivers/media/common/tuners/tea5767.ko drivers/media/common/tuners/tea5761.ko drivers/media/common/tuners/tda9887.ko drivers/media/common/tuners/xc5000.ko drivers/media/common/tuners/mc44s803.ko; do echo kernel/$m; done;	\
+	cat /dev/null ) > drivers/media/common/tuners/modules.builtin
+(for m in net/ipv4/esp4.ko net/ipv4/tunnel4.ko net/ipv4/xfrm4_mode_transport.ko net/ipv4/inet_diag.ko net/ipv4/tcp_diag.ko net/ipv4/tcp_cubic.ko; do echo kernel/$m; done;	\
+	cat /dev/null net/ipv4/netfilter/modules.builtin) > net/ipv4/modules.builtin
+(for m in net/ipv6/ipv6.ko net/ipv6/ah6.ko net/ipv6/esp6.ko net/ipv6/ipcomp6.ko net/ipv6/xfrm6_tunnel.ko net/ipv6/tunnel6.ko net/ipv6/xfrm6_mode_transport.ko net/ipv6/xfrm6_mode_tunnel.ko net/ipv6/xfrm6_mode_beet.ko net/ipv6/mip6.ko net/ipv6/sit.ko net/ipv6/ip6_tunnel.ko net/ipv6/inet6_hashtables.ko; do echo kernel/$m; done;	\
+	cat /dev/null net/ipv6/netfilter/modules.builtin) > net/ipv6/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=sound/pci/mixart
+make -f scripts/Makefile.modbuiltin obj=net/key
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null drivers/media/common/tuners/modules.builtin) > drivers/media/common/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=net/netfilter
+make -f scripts/Makefile.modbuiltin obj=drivers/media/radio
+(for m in net/key/af_key.ko; do echo kernel/$m; done;	\
+	cat /dev/null ) > net/key/modules.builtin
+(for m in net/netfilter/nfnetlink.ko net/netfilter/nfnetlink_queue.ko net/netfilter/nfnetlink_log.ko net/netfilter/nf_conntrack.ko net/netfilter/nf_conntrack_proto_dccp.ko net/netfilter/nf_conntrack_proto_gre.ko net/netfilter/nf_conntrack_proto_sctp.ko net/netfilter/nf_conntrack_proto_udplite.ko net/netfilter/nf_conntrack_netlink.ko net/netfilter/nf_conntrack_amanda.ko net/netfilter/nf_conntrack_ftp.ko net/netfilter/nf_conntrack_h323.ko net/netfilter/nf_conntrack_irc.ko net/netfilter/nf_conntrack_netbios_ns.ko net/netfilter/nf_conntrack_pptp.ko net/netfilter/nf_conntrack_sane.ko net/netfilter/nf_conntrack_sip.ko net/netfilter/nf_conntrack_tftp.ko net/netfilter/x_tables.ko net/netfilter/xt_tcpudp.ko net/netfilter/xt_mark.ko net/netfilter/xt_connmark.ko net/netfilter/xt_CLASSIFY.ko net/netfilter/xt_NFQUEUE.ko net/netfilter/xt_TCPMSS.ko net/netfilter/xt_comment.ko net/netfilter/xt_connbytes.ko net/netfilter/xt_connlimit.ko net/netfilter/xt_conntrack.ko net/netfilter/xt_hashlimit.ko net/netfilter/xt_helper.ko net/netfilter/xt_hl.ko net/netfilter/xt_iprange.ko net/netfilter/xt_length.ko net/netfilter/xt_limit.ko net/netfilter/xt_mac.ko net/netfilter/xt_owner.ko net/netfilter/xt_pkttype.ko net/netfilter/xt_policy.ko net/netfilter/xt_quota.ko net/netfilter/xt_state.ko net/netfilter/xt_statistic.ko net/netfilter/xt_string.ko net/netfilter/xt_time.ko net/netfilter/xt_u32.ko; do echo kernel/$m; done;	\
+	cat /dev/null ) > net/netfilter/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=net/netlink
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > sound/pci/mixart/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=net/packet
+make -f scripts/Makefile.modbuiltin obj=sound/pci/nm256
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > sound/pci/nm256/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=sound/pci/oxygen
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > drivers/media/radio/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=drivers/media/video
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > sound/pci/oxygen/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=sound/pci/pcxhr
+(for m in net/packet/af_packet.ko; do echo kernel/$m; done;	\
+	cat /dev/null ) > net/packet/modules.builtin
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > sound/pci/pcxhr/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=net/phonet
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > net/netlink/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=sound/pci/riptide
+make -f scripts/Makefile.modbuiltin obj=net/rfkill
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > sound/pci/riptide/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=drivers/media/video/samsung
+make -f scripts/Makefile.modbuiltin obj=sound/pci/rme9652
+(for m in net/phonet/phonet.ko net/phonet/pn_pep.ko; do echo kernel/$m; done;	\
+	cat /dev/null ) > net/phonet/modules.builtin
+(for m in net/rfkill/rfkill.ko; do echo kernel/$m; done;	\
+	cat /dev/null ) > net/rfkill/modules.builtin
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > sound/pci/rme9652/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=net/sched
+make -f scripts/Makefile.modbuiltin obj=sound/pci/trident
+make -f scripts/Makefile.modbuiltin obj=net/unix
+make -f scripts/Makefile.modbuiltin obj=drivers/media/video/samsung/fimc
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > sound/pci/trident/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=sound/pci/vx222
+(for m in net/sched/act_police.ko net/sched/act_gact.ko net/sched/act_mirred.ko net/sched/sch_htb.ko net/sched/sch_ingress.ko net/sched/cls_u32.ko net/sched/em_u32.ko; do echo kernel/$m; done;	\
+	cat /dev/null ) > net/sched/modules.builtin
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > sound/pci/vx222/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=arch/arm/lib
+make -f scripts/Makefile.modbuiltin obj=sound/pci/ymfpci
+(for m in net/unix/unix.ko; do echo kernel/$m; done;	\
+	cat /dev/null ) > net/unix/modules.builtin
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > drivers/media/video/samsung/fimc/modules.builtin
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > sound/pci/ymfpci/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=net/wireless
+make -f scripts/Makefile.modbuiltin obj=drivers/media/video/samsung/jpeg_v2
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > net/wireless/modules.builtin
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null sound/pci/ac97/modules.builtin sound/pci/ali5451/modules.builtin sound/pci/asihpi/modules.builtin sound/pci/au88x0/modules.builtin sound/pci/aw2/modules.builtin sound/pci/ca0106/modules.builtin sound/pci/cs46xx/modules.builtin sound/pci/cs5535audio/modules.builtin sound/pci/ctxfi/modules.builtin sound/pci/echoaudio/modules.builtin sound/pci/emu10k1/modules.builtin sound/pci/hda/modules.builtin sound/pci/ice1712/modules.builtin sound/pci/korg1212/modules.builtin sound/pci/lx6464es/modules.builtin sound/pci/mixart/modules.builtin sound/pci/nm256/modules.builtin sound/pci/oxygen/modules.builtin sound/pci/pcxhr/modules.builtin sound/pci/riptide/modules.builtin sound/pci/rme9652/modules.builtin sound/pci/trident/modules.builtin sound/pci/vx222/modules.builtin sound/pci/ymfpci/modules.builtin) > sound/pci/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=net/xfrm
+make -f scripts/Makefile.modbuiltin obj=sound/pcmcia
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > drivers/media/video/samsung/jpeg_v2/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=drivers/media/video/samsung/mfc50
+(for m in net/xfrm/xfrm_ipcomp.ko; do echo kernel/$m; done;	\
+	cat /dev/null ) > net/xfrm/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=sound/pcmcia/pdaudiocf
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null net/802/modules.builtin net/bluetooth/modules.builtin net/core/modules.builtin net/ethernet/modules.builtin net/ieee802154/modules.builtin net/ipv4/modules.builtin net/ipv6/modules.builtin net/key/modules.builtin net/netfilter/modules.builtin net/netlink/modules.builtin net/packet/modules.builtin net/phonet/modules.builtin net/rfkill/modules.builtin net/sched/modules.builtin net/unix/modules.builtin net/wireless/modules.builtin net/xfrm/modules.builtin) > net/modules.builtin
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > drivers/media/video/samsung/mfc50/modules.builtin
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > sound/pcmcia/pdaudiocf/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=lib
+make -f scripts/Makefile.modbuiltin obj=sound/pcmcia/vx
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null drivers/media/video/samsung/fimc/modules.builtin drivers/media/video/samsung/jpeg_v2/modules.builtin drivers/media/video/samsung/mfc50/modules.builtin) > drivers/media/video/samsung/modules.builtin
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > arch/arm/lib/modules.builtin
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > sound/pcmcia/vx/modules.builtin
+(for m in drivers/media/video/videodev.ko drivers/media/video/v4l2-int-device.ko drivers/media/video/v4l2-common.ko drivers/media/video/v4l1-compat.ko drivers/media/video/ce147-victory.ko drivers/media/video/s5ka3dfx.ko; do echo kernel/$m; done;	\
+	cat /dev/null drivers/media/video/samsung/modules.builtin) > drivers/media/video/modules.builtin
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null drivers/media/IR/modules.builtin drivers/media/common/modules.builtin drivers/media/radio/modules.builtin drivers/media/video/modules.builtin) > drivers/media/modules.builtin
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null sound/pcmcia/pdaudiocf/modules.builtin sound/pcmcia/vx/modules.builtin) > sound/pcmcia/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=sound/ppc
+make -f scripts/Makefile.modbuiltin obj=drivers/mfd
+make -f scripts/Makefile.modbuiltin obj=sound/sh
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > sound/ppc/modules.builtin
+(for m in ; do echo kernel/$m; done;	\
+make -f scripts/Makefile.modbuiltin obj=sound/soc
+	cat /dev/null ) > sound/sh/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=sound/sparc
+(for m in drivers/mfd/mfd-core.ko; do echo kernel/$m; done;	\
+	cat /dev/null ) > drivers/mfd/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=drivers/misc
+make -f scripts/Makefile.modbuiltin obj=lib/reed_solomon
+make -f scripts/Makefile.modbuiltin obj=sound/soc/atmel
+(for m in lib/reed_solomon/reed_solomon.ko; do echo kernel/$m; done;	\
+	cat /dev/null ) > lib/reed_solomon/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=lib/zlib_deflate
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > sound/sparc/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=sound/spi
+(for m in lib/zlib_deflate/zlib_deflate.ko; do echo kernel/$m; done;	\
+	cat /dev/null ) > lib/zlib_deflate/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=lib/zlib_inflate
+make -f scripts/Makefile.modbuiltin obj=drivers/misc/cb710
+(for m in lib/zlib_inflate/zlib_inflate.ko; do echo kernel/$m; done;	\
+	cat /dev/null ) > lib/zlib_inflate/modules.builtin
+(for m in lib/bitrev.ko lib/crc-ccitt.ko lib/crc16.ko lib/crc32.ko lib/libcrc32c.ko lib/ts_kmp.ko lib/ts_bm.ko lib/ts_fsm.ko; do echo kernel/$m; done;	\
+	cat /dev/null lib/reed_solomon/modules.builtin lib/zlib_deflate/modules.builtin lib/zlib_inflate/modules.builtin) > lib/modules.builtin
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > sound/soc/atmel/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=drivers/misc/eeprom
+make -f scripts/Makefile.modbuiltin obj=sound/soc/au1x
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > sound/spi/modules.builtin
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > drivers/misc/eeprom/modules.builtin
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > drivers/misc/cb710/modules.builtin
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > sound/soc/au1x/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=sound/synth
+make -f scripts/Makefile.modbuiltin obj=drivers/mmc
+(for m in drivers/misc/fsa9480.ko; do echo kernel/$m; done;	\
+	cat /dev/null drivers/misc/cb710/modules.builtin drivers/misc/eeprom/modules.builtin) > drivers/misc/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=sound/soc/blackfin
+make -f scripts/Makefile.modbuiltin obj=drivers/net
+make -f scripts/Makefile.modbuiltin obj=drivers/mmc/card
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > sound/synth/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=sound/usb
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > sound/soc/blackfin/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=sound/soc/codecs
+make -f scripts/Makefile.modbuiltin obj=drivers/net/arm
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > drivers/net/arm/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=drivers/net/wireless
+(for m in drivers/mmc/card/mmc_block.ko; do echo kernel/$m; done;	\
+	cat /dev/null ) > drivers/mmc/card/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=drivers/mmc/core
+make -f scripts/Makefile.modbuiltin obj=sound/usb/caiaq
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > sound/usb/caiaq/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=sound/usb/misc
+(for m in drivers/mmc/core/mmc_core.ko; do echo kernel/$m; done;	\
+	cat /dev/null ) > drivers/mmc/core/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=drivers/mmc/host
+(for m in sound/soc/codecs/snd-soc-wm8994.ko sound/soc/codecs/snd-soc-wm-hubs.ko; do echo kernel/$m; done;	\
+	cat /dev/null ) > sound/soc/codecs/modules.builtin
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > sound/usb/misc/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=sound/soc/davinci
+make -f scripts/Makefile.modbuiltin obj=sound/usb/usx2y
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > sound/usb/usx2y/modules.builtin
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null sound/usb/caiaq/modules.builtin sound/usb/misc/modules.builtin sound/usb/usx2y/modules.builtin) > sound/usb/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=drivers/net/wireless/bcm4329/victory
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > sound/soc/davinci/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=sound/soc/fsl
+make -f scripts/Makefile.modbuiltin obj=sound/soc/imx
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > drivers/net/wireless/bcm4329/victory/modules.builtin
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > sound/soc/fsl/modules.builtin
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > sound/soc/imx/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=sound/soc/omap
+(for m in drivers/mmc/host/sdhci.ko drivers/mmc/host/sdhci-s3c.ko; do echo kernel/$m; done;	\
+	cat /dev/null ) > drivers/mmc/host/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=sound/soc/pxa
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null drivers/mmc/card/modules.builtin drivers/mmc/core/modules.builtin drivers/mmc/host/modules.builtin) > drivers/mmc/modules.builtin
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > sound/soc/omap/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=sound/soc/s3c24xx
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > sound/soc/pxa/modules.builtin
+(for m in sound/soc/s3c24xx/snd-soc-s3c24xx.ko sound/soc/s3c24xx/snd-soc-s3c-idma.ko sound/soc/s3c24xx/snd-soc-s3c-dma-wrapper.ko sound/soc/s3c24xx/snd-soc-s5pc1xx-i2s.ko sound/soc/s3c24xx/snd-soc-s5p-i2s_sec.ko sound/soc/s3c24xx/snd-soc-s3c-i2s-v2.ko sound/soc/s3c24xx/snd-soc-aries-wm8994.ko; do echo kernel/$m; done;	\
+	cat /dev/null ) > sound/soc/s3c24xx/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=sound/soc/s6000
+make -f scripts/Makefile.modbuiltin obj=sound/soc/sh
+make -f scripts/Makefile.modbuiltin obj=sound/soc/txx9
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > sound/soc/s6000/modules.builtin
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > sound/soc/sh/modules.builtin
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > sound/soc/txx9/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=drivers/platform
+set -e; : '  CHK     include/generated/utsrelease.h'; mkdir -p include/generated/; 	if [ `echo -n "2.6.35.7-Samurai-3.3.1.WARRIOR" | wc -c ` -gt 64 ]; then echo '"2.6.35.7-Samurai-3.3.1.WARRIOR" exceeds 64 characters' >&2; exit 1; fi; (echo \#define UTS_RELEASE \"2.6.35.7-Samurai-3.3.1.WARRIOR\";) < include/config/kernel.release > include/generated/utsrelease.h.tmp; if [ -r include/generated/utsrelease.h ] && cmp -s include/generated/utsrelease.h include/generated/utsrelease.h.tmp; then rm -f include/generated/utsrelease.h.tmp; else : '  UPD     include/generated/utsrelease.h'; mv -f include/generated/utsrelease.h.tmp include/generated/utsrelease.h; fi
+(for m in sound/soc/snd-soc-core.ko; do echo kernel/$m; done;	\
+	cat /dev/null sound/soc/atmel/modules.builtin sound/soc/au1x/modules.builtin sound/soc/blackfin/modules.builtin sound/soc/codecs/modules.builtin sound/soc/davinci/modules.builtin sound/soc/fsl/modules.builtin sound/soc/imx/modules.builtin sound/soc/omap/modules.builtin sound/soc/pxa/modules.builtin sound/soc/s3c24xx/modules.builtin sound/soc/s6000/modules.builtin sound/soc/sh/modules.builtin sound/soc/txx9/modules.builtin) > sound/soc/modules.builtin
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null drivers/net/wireless/bcm4329/victory/modules.builtin) > drivers/net/wireless/modules.builtin
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > drivers/platform/modules.builtin
+(for m in sound/soundcore.ko; do echo kernel/$m; done;	\
+	cat /dev/null sound/arm/modules.builtin sound/atmel/modules.builtin sound/core/modules.builtin sound/drivers/modules.builtin sound/i2c/modules.builtin sound/isa/modules.builtin sound/mips/modules.builtin sound/parisc/modules.builtin sound/pci/modules.builtin sound/pcmcia/modules.builtin sound/ppc/modules.builtin sound/sh/modules.builtin sound/soc/modules.builtin sound/sparc/modules.builtin sound/spi/modules.builtin sound/synth/modules.builtin sound/usb/modules.builtin) > sound/modules.builtin
+(for m in drivers/net/ppp_generic.ko drivers/net/ppp_async.ko drivers/net/ppp_synctty.ko drivers/net/ppp_deflate.ko drivers/net/bsd_comp.ko drivers/net/ppp_mppe.ko drivers/net/pppox.ko drivers/net/pppoe.ko drivers/net/pppox.ko drivers/net/pppolac.ko drivers/net/pppox.ko drivers/net/pppopns.ko drivers/net/slhc.ko drivers/net/ifb.ko drivers/net/tun.ko; do echo kernel/$m; done;	\
+	cat /dev/null drivers/net/arm/modules.builtin drivers/net/wireless/modules.builtin) > drivers/net/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=drivers/power
+make -f scripts/Makefile.modbuiltin obj=drivers/regulator
+make -f scripts/Makefile.modbuiltin obj=drivers/rtc
+(for m in drivers/power/power_supply.ko drivers/power/max17040_battery.ko drivers/power/s5pc110_battery.ko; do echo kernel/$m; done;	\
+	cat /dev/null ) > drivers/power/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=drivers/scsi
+(for m in drivers/rtc/rtc-lib.ko drivers/rtc/rtc-core.ko drivers/rtc/rtc-max8998.ko drivers/rtc/rtc-s3c.ko; do echo kernel/$m; done;	\
+	cat /dev/null ) > drivers/rtc/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=drivers/serial
+(for m in drivers/regulator/max8998.ko drivers/regulator/max8893.ko; do echo kernel/$m; done;	\
+	cat /dev/null ) > drivers/regulator/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=drivers/spi
+make -f scripts/Makefile.modbuiltin obj=drivers/scsi/arm
+(for m in drivers/serial/serial_core.ko drivers/serial/samsung.ko drivers/serial/s5pv210.ko; do echo kernel/$m; done;	\
+	cat /dev/null ) > drivers/serial/modules.builtin
+(for m in drivers/spi/spi_bitbang.ko drivers/spi/spi_gpio.ko; do echo kernel/$m; done;	\
+	cat /dev/null ) > drivers/spi/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=drivers/staging
+make -f scripts/Makefile.modbuiltin obj=drivers/switch
+make -f scripts/Makefile.modbuiltin obj=drivers/staging/android
+(for m in drivers/staging/android/logger.ko drivers/staging/android/timed_gpio.ko; do echo kernel/$m; done;	\
+	cat /dev/null ) > drivers/staging/android/modules.builtin
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null drivers/staging/android/modules.builtin) > drivers/staging/modules.builtin
+make -f scripts/Makefile.build obj=scripts
+make -f scripts/Makefile.modbuiltin obj=drivers/tfsr
+(for m in drivers/switch/switch_class.ko; do echo kernel/$m; done;	\
+	cat /dev/null ) > drivers/switch/modules.builtin
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > drivers/tfsr/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=drivers/usb/gadget
+make -f scripts/Makefile.modbuiltin obj=drivers/video
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > drivers/scsi/arm/modules.builtin
+(for m in drivers/usb/gadget/s3c_udc_otg.ko; do echo kernel/$m; done;	\
+	cat /dev/null ) > drivers/usb/gadget/modules.builtin
+(for m in drivers/scsi/scsi_mod.ko drivers/scsi/sd_mod.ko drivers/scsi/sg.ko; do echo kernel/$m; done;	\
+	cat /dev/null drivers/scsi/arm/modules.builtin) > drivers/scsi/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=drivers/video/backlight
+make -f scripts/Makefile.modbuiltin obj=drivers/video/console
+make -f scripts/Makefile.modbuiltin obj=drivers/video/display
+make -f scripts/Makefile.build obj=scripts/mod
+(for m in drivers/video/backlight/lcd.ko drivers/video/backlight/backlight.ko; do echo kernel/$m; done;	\
+	cat /dev/null ) > drivers/video/backlight/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=drivers/video/omap2
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > drivers/video/display/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=drivers/video/samsung
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > drivers/video/console/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=drivers/video/omap2/displays
+make -f scripts/Makefile.modbuiltin obj=drivers/video/omap2/dss
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > drivers/video/samsung/modules.builtin
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > drivers/video/omap2/displays/modules.builtin
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > drivers/video/omap2/dss/modules.builtin
+make -f scripts/Makefile.modbuiltin obj=drivers/video/omap2/omapfb
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null ) > drivers/video/omap2/omapfb/modules.builtin
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null drivers/video/omap2/displays/modules.builtin drivers/video/omap2/dss/modules.builtin drivers/video/omap2/omapfb/modules.builtin) > drivers/video/omap2/modules.builtin
+(for m in drivers/video/fb.ko drivers/video/cfbfillrect.ko drivers/video/cfbcopyarea.ko drivers/video/cfbimgblt.ko; do echo kernel/$m; done;	\
+	cat /dev/null drivers/video/backlight/modules.builtin drivers/video/console/modules.builtin drivers/video/display/modules.builtin drivers/video/omap2/modules.builtin drivers/video/samsung/modules.builtin) > drivers/video/modules.builtin
+(for m in ; do echo kernel/$m; done;	\
+	cat /dev/null drivers/auxdisplay/modules.builtin drivers/base/modules.builtin drivers/block/modules.builtin drivers/bluetooth/modules.builtin drivers/cdrom/modules.builtin drivers/char/modules.builtin drivers/clocksource/modules.builtin drivers/cpufreq/modules.builtin drivers/cpuidle/modules.builtin drivers/crypto/modules.builtin drivers/firmware/modules.builtin drivers/gpio/modules.builtin drivers/gpu/modules.builtin drivers/i2c/modules.builtin drivers/idle/modules.builtin drivers/ieee1394/modules.builtin drivers/ieee802154/modules.builtin drivers/input/modules.builtin drivers/input/serio/modules.builtin drivers/leds/modules.builtin drivers/level/modules.builtin drivers/lguest/modules.builtin drivers/macintosh/modules.builtin drivers/md/modules.builtin drivers/media/modules.builtin drivers/mfd/modules.builtin drivers/misc/modules.builtin drivers/mmc/modules.builtin drivers/net/modules.builtin drivers/platform/modules.builtin drivers/power/modules.builtin drivers/regulator/modules.builtin drivers/rtc/modules.builtin drivers/scsi/modules.builtin drivers/serial/modules.builtin drivers/spi/modules.builtin drivers/staging/modules.builtin drivers/switch/modules.builtin drivers/tfsr/modules.builtin drivers/usb/gadget/modules.builtin drivers/video/modules.builtin) > drivers/modules.builtin
+mkdir -p .tmp_versions ; rm -f .tmp_versions/*
+(cat /dev/null; ) > scripts/mod/modules.order
+(cat /dev/null; ) > scripts/modules.order
+awk '!x[$0]++' init/modules.builtin usr/modules.builtin arch/arm/kernel/modules.builtin arch/arm/mm/modules.builtin arch/arm/common/modules.builtin arch/arm/mach-s5pv210/modules.builtin arch/arm/plat-s5p/modules.builtin arch/arm/plat-samsung/modules.builtin arch/arm/vfp/modules.builtin kernel/modules.builtin mm/modules.builtin fs/modules.builtin ipc/modules.builtin security/modules.builtin crypto/modules.builtin block/modules.builtin drivers/modules.builtin sound/modules.builtin firmware/modules.builtin net/modules.builtin arch/arm/lib/modules.builtin lib/modules.builtin > /home/earthbound/.samurai/kernel/modules.builtin
+make -f scripts/Makefile.build obj=arch/arm/tools include/generated/mach-types.h
+make[1]: `include/generated/mach-types.h' is up to date.
+make -f scripts/Makefile.build obj=.
+(cat /dev/null; ) > modules.order
+mkdir -p kernel/
+mkdir -p arch/arm/kernel/
+make -f scripts/Makefile.build obj=. missing-syscalls
+  /bin/sh scripts/checksyscalls.sh /home/earthbound/prebuilt/linux-x86/toolchain/arm-eabi-4.4.0/bin/arm-eabi-gcc -Wp,-MD,./.missing-syscalls.d  -nostdinc -isystem /home/earthbound/prebuilt/linux-x86/toolchain/arm-eabi-4.4.0/bin/../lib/gcc/arm-eabi/4.4.0/include -I/home/earthbound/.samurai/kernel/arch/arm/include -Iinclude  -include include/generated/autoconf.h -D__KERNEL__ -mlittle-endian -Iarch/arm/mach-s5pv210/include -Iarch/arm/plat-s5p/include -Iarch/arm/plat-samsung/include -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs -fno-strict-aliasing -fno-common -Werror-implicit-function-declaration -Wno-format-security -fno-delete-null-pointer-checks -Os -marm -fno-omit-frame-pointer -mapcs -mno-sched-prolog -mabi=aapcs-linux -mno-thumb-interwork -D__LINUX_ARM_ARCH__=7 -march=armv7-a -msoft-float -Uarm -Wframe-larger-than=1024 -fno-stack-protector -fno-omit-frame-pointer -fno-optimize-sibling-calls -g -Wdeclaration-after-statement -Wno-pointer-sign -fno-strict-overflow -fconserve-stack   -D"KBUILD_STR(s)=#s" -D"KBUILD_BASENAME=KBUILD_STR(missing_syscalls)"  -D"KBUILD_MODNAME=KBUILD_STR(missing_syscalls)" 
+make -f scripts/Makefile.build obj=init
+make -f scripts/Makefile.build obj=usr
+make -f scripts/Makefile.build obj=arch/arm/kernel
+make -f scripts/Makefile.build obj=arch/arm/mm
+/bin/sh /home/earthbound/.samurai/kernel/scripts/gen_initramfs_list.sh -l  ../initramfs > usr/.initramfs_data.cpio.d
+(cat /dev/null; ) > usr/modules.order
+make -f scripts/Makefile.build obj=arch/arm/common
+/bin/sh /home/earthbound/.samurai/kernel/scripts/mkcompile_h include/generated/compile.h \
+	"arm" "" "y" "/home/earthbound/prebuilt/linux-x86/toolchain/arm-eabi-4.4.0/bin/arm-eabi-gcc -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs -fno-strict-aliasing -fno-common -Werror-implicit-function-declaration -Wno-format-security -fno-delete-null-pointer-checks -Os -marm -fno-omit-frame-pointer -mapcs -mno-sched-prolog -mabi=aapcs-linux -mno-thumb-interwork  -D__LINUX_ARM_ARCH__=7 -march=armv7-a   -msoft-float -Uarm -Wframe-larger-than=1024  -fno-stack-protector -fno-omit-frame-pointer -fno-optimize-sibling-calls -g -Wdeclaration-after-statement -Wno-pointer-sign -fno-strict-overflow -fconserve-stack"
+(cat /dev/null; ) > arch/arm/mm/modules.order
+make -f scripts/Makefile.build obj=arch/arm/mach-s5pv210
+(cat /dev/null; ) > arch/arm/kernel/modules.order
+make -f scripts/Makefile.build obj=arch/arm/plat-s5p
+(cat /dev/null; ) > arch/arm/common/modules.order
+make -f scripts/Makefile.build obj=arch/arm/plat-samsung
+(cat /dev/null; ) > arch/arm/plat-s5p/modules.order
+make -f scripts/Makefile.build obj=arch/arm/vfp
+(cat /dev/null; ) > arch/arm/plat-samsung/modules.order
+make -f scripts/Makefile.build obj=kernel
+(cat /dev/null; ) > arch/arm/mach-s5pv210/modules.order
+make -f scripts/Makefile.build obj=mm
+(cat /dev/null; ) > arch/arm/vfp/modules.order
+(cat /dev/null; ) > init/modules.order
+make -f scripts/Makefile.build obj=fs
+make -f scripts/Makefile.build obj=ipc
+(cat /dev/null; ) > ipc/modules.order
+make -f scripts/Makefile.build obj=security
+(cat /dev/null; ) > security/modules.order
+make -f scripts/Makefile.build obj=crypto
+(cat /dev/null; ) > mm/modules.order
+make -f scripts/Makefile.build obj=block
+make -f scripts/Makefile.build obj=fs/cifs
+make -f scripts/Makefile.build obj=kernel/irq
+(cat /dev/null; ) > fs/cifs/modules.order
+(cat /dev/null; ) > block/modules.order
+make -f scripts/Makefile.build obj=fs/cramfs
+(cat /dev/null;   echo kernel/crypto/ansi_cprng.ko;) > crypto/modules.order
+make -f scripts/Makefile.build obj=drivers
+make -f scripts/Makefile.build obj=fs/debugfs
+(cat /dev/null; ) > kernel/irq/modules.order
+make -f scripts/Makefile.build obj=kernel/power
+(cat /dev/null; ) > fs/cramfs/modules.order
+make -f scripts/Makefile.build obj=fs/devpts
+make -f scripts/Makefile.build obj=drivers/auxdisplay
+(cat /dev/null; ) > drivers/auxdisplay/modules.order
+(cat /dev/null; ) > fs/devpts/modules.order
+make -f scripts/Makefile.build obj=drivers/base
+make -f scripts/Makefile.build obj=sound
+(cat /dev/null; ) > fs/debugfs/modules.order
+make -f scripts/Makefile.build obj=fs/ext2
+make -f scripts/Makefile.build obj=sound/arm
+(cat /dev/null; ) > kernel/power/modules.order
+make -f scripts/Makefile.build obj=kernel/time
+(cat /dev/null; ) > fs/ext2/modules.order
+make -f scripts/Makefile.build obj=fs/ext4
+(cat /dev/null; ) > sound/arm/modules.order
+make -f scripts/Makefile.build obj=sound/atmel
+make -f scripts/Makefile.build obj=drivers/base/power
+(cat /dev/null; ) > sound/atmel/modules.order
+make -f scripts/Makefile.build obj=sound/core
+(cat /dev/null; ) > drivers/base/power/modules.order
+(cat /dev/null;   cat drivers/base/power/modules.order;) > drivers/base/modules.order
+make -f scripts/Makefile.build obj=drivers/block
+(cat /dev/null; ) > drivers/block/modules.order
+make -f scripts/Makefile.build obj=drivers/bluetooth
+(cat /dev/null; ) > kernel/time/modules.order
+(cat /dev/null;   cat kernel/time/modules.order;   cat kernel/power/modules.order;   cat kernel/power/modules.order;   cat kernel/irq/modules.order;) > kernel/modules.order
+(cat /dev/null; ) > drivers/bluetooth/modules.order
+make -f scripts/Makefile.build obj=drivers/cdrom
+make -f scripts/Makefile.build obj=sound/drivers
+(cat /dev/null; ) > drivers/cdrom/modules.order
+make -f scripts/Makefile.build obj=drivers/char
+make -f scripts/Makefile.build obj=sound/drivers/mpu401
+(cat /dev/null; ) > sound/drivers/mpu401/modules.order
+make -f scripts/Makefile.build obj=sound/drivers/opl3
+(cat /dev/null; ) > sound/drivers/opl3/modules.order
+make -f scripts/Makefile.build obj=sound/drivers/opl4
+(cat /dev/null; ) > sound/drivers/opl4/modules.order
+make -f scripts/Makefile.build obj=sound/drivers/pcsp
+(cat /dev/null; ) > fs/ext4/modules.order
+make -f scripts/Makefile.build obj=fs/fat
+(cat /dev/null; ) > sound/drivers/pcsp/modules.order
+make -f scripts/Makefile.build obj=sound/drivers/vx
+(cat /dev/null; ) > sound/core/modules.order
+make -f scripts/Makefile.build obj=sound/i2c
+make -f scripts/Makefile.build obj=sound/i2c/other
+(cat /dev/null; ) > sound/drivers/vx/modules.order
+make -f scripts/Makefile.build obj=drivers/char/hw_random
+(cat /dev/null;   cat sound/drivers/opl3/modules.order;   cat sound/drivers/opl4/modules.order;   cat sound/drivers/mpu401/modules.order;   cat sound/drivers/vx/modules.order;   cat sound/drivers/pcsp/modules.order;) > sound/drivers/modules.order
+(cat /dev/null; ) > sound/i2c/other/modules.order
+(cat /dev/null;   cat sound/i2c/other/modules.order;) > sound/i2c/modules.order
+make -f scripts/Makefile.build obj=sound/isa
+make -f scripts/Makefile.build obj=sound/mips
+(cat /dev/null; ) > drivers/char/hw_random/modules.order
+(cat /dev/null; ) > sound/mips/modules.order
+(cat /dev/null;   cat drivers/char/hw_random/modules.order;) > drivers/char/modules.order
+make -f scripts/Makefile.build obj=drivers/clocksource
+make -f scripts/Makefile.build obj=sound/isa/ad1816a
+make -f scripts/Makefile.build obj=drivers/cpufreq
+(cat /dev/null; ) > sound/isa/ad1816a/modules.order
+make -f scripts/Makefile.build obj=sound/isa/ad1848
+(cat /dev/null; ) > sound/isa/ad1848/modules.order
+make -f scripts/Makefile.build obj=sound/isa/cs423x
+(cat /dev/null; ) > drivers/clocksource/modules.order
+make -f scripts/Makefile.build obj=drivers/cpuidle
+(cat /dev/null; ) > sound/isa/cs423x/modules.order
+make -f scripts/Makefile.build obj=sound/isa/es1688
+(cat /dev/null; ) > sound/isa/es1688/modules.order
+make -f scripts/Makefile.build obj=sound/isa/gus
+(cat /dev/null; ) > fs/fat/modules.order
+make -f scripts/Makefile.build obj=fs/fuse
+(cat /dev/null; ) > drivers/cpufreq/modules.order
+make -f scripts/Makefile.build obj=drivers/cpuidle/governors
+make -f scripts/Makefile.build obj=drivers/crypto
+(cat /dev/null; ) > sound/isa/gus/modules.order
+make -f scripts/Makefile.build obj=sound/isa/msnd
+(cat /dev/null; ) > drivers/crypto/modules.order
+(cat /dev/null; ) > drivers/cpuidle/governors/modules.order
+make -f scripts/Makefile.build obj=drivers/firmware
+(cat /dev/null;   cat drivers/cpuidle/governors/modules.order;) > drivers/cpuidle/modules.order
+make -f scripts/Makefile.build obj=drivers/gpio
+(cat /dev/null; ) > sound/isa/msnd/modules.order
+make -f scripts/Makefile.build obj=sound/isa/opti9xx
+(cat /dev/null; ) > fs/fuse/modules.order
+make -f scripts/Makefile.build obj=fs/jbd2
+(cat /dev/null; ) > drivers/firmware/modules.order
+make -f scripts/Makefile.build obj=drivers/gpu
+(cat /dev/null; ) > drivers/gpio/modules.order
+make -f scripts/Makefile.build obj=drivers/i2c
+make -f scripts/Makefile.build obj=drivers/gpu/drm
+make -f scripts/Makefile.build obj=drivers/i2c/algos
+(cat /dev/null; ) > sound/isa/opti9xx/modules.order
+make -f scripts/Makefile.build obj=sound/isa/sb
+make -f scripts/Makefile.build obj=drivers/gpu/drm/i2c
+(cat /dev/null; ) > drivers/gpu/drm/i2c/modules.order
+(cat /dev/null;   cat drivers/gpu/drm/i2c/modules.order;) > drivers/gpu/drm/modules.order
+make -f scripts/Makefile.build obj=drivers/gpu/pvr
+(cat /dev/null; ) > sound/isa/sb/modules.order
+make -f scripts/Makefile.build obj=sound/isa/wavefront
+(cat /dev/null; ) > fs/jbd2/modules.order
+(cat /dev/null; ) > drivers/i2c/algos/modules.order
+make -f scripts/Makefile.build obj=drivers/i2c/busses
+make -f scripts/Makefile.build obj=fs/nls
+(cat /dev/null; ) > drivers/i2c/busses/modules.order
+(cat /dev/null;   cat drivers/i2c/algos/modules.order;   cat drivers/i2c/busses/modules.order;) > drivers/i2c/modules.order
+(cat /dev/null; ) > sound/isa/wavefront/modules.order
+make -f scripts/Makefile.build obj=sound/isa/wss
+make -f scripts/Makefile.build obj=drivers/idle
+(cat /dev/null; ) > sound/isa/wss/modules.order
+(cat /dev/null; ) > drivers/idle/modules.order
+(cat /dev/null;   cat sound/isa/ad1816a/modules.order;   cat sound/isa/ad1848/modules.order;   cat sound/isa/cs423x/modules.order;   cat sound/isa/es1688/modules.order;   cat sound/isa/gus/modules.order;   cat sound/isa/msnd/modules.order;   cat sound/isa/opti9xx/modules.order;   cat sound/isa/sb/modules.order;   cat sound/isa/wavefront/modules.order;   cat sound/isa/wss/modules.order;) > sound/isa/modules.order
+make -f scripts/Makefile.build obj=drivers/ieee1394
+(cat /dev/null; ) > fs/nls/modules.order
+make -f scripts/Makefile.build obj=fs/notify
+make -f scripts/Makefile.build obj=sound/parisc
+make -f scripts/Makefile.build obj=fs/notify/dnotify
+(cat /dev/null; ) > sound/parisc/modules.order
+make -f scripts/Makefile.build obj=sound/pci
+(cat /dev/null; ) > drivers/ieee1394/modules.order
+(cat /dev/null; ) > fs/notify/dnotify/modules.order
+make -f scripts/Makefile.build obj=drivers/gpu/vga
+make -f scripts/Makefile.build obj=fs/notify/inotify
+make -f scripts/Makefile.build obj=sound/pci/ac97
+(cat /dev/null; ) > drivers/gpu/vga/modules.order
+make -f scripts/Makefile.build obj=sound/pcmcia
+(cat /dev/null; ) > fs/notify/inotify/modules.order
+(cat /dev/null;   cat fs/notify/dnotify/modules.order;   cat fs/notify/inotify/modules.order;) > fs/notify/modules.order
+(cat /dev/null; ) > sound/pci/ac97/modules.order
+make -f scripts/Makefile.build obj=fs/partitions
+make -f scripts/Makefile.build obj=sound/pci/ali5451
+make -f scripts/Makefile.build obj=sound/pcmcia/pdaudiocf
+(cat /dev/null; ) > sound/pcmcia/pdaudiocf/modules.order
+make -f scripts/Makefile.build obj=sound/pcmcia/vx
+(cat /dev/null; ) > fs/partitions/modules.order
+make -f scripts/Makefile.build obj=fs/proc
+(cat /dev/null; ) > sound/pci/ali5451/modules.order
+(cat /dev/null; ) > sound/pcmcia/vx/modules.order
+make -f scripts/Makefile.build obj=sound/pci/asihpi
+(cat /dev/null;   cat sound/pcmcia/vx/modules.order;   cat sound/pcmcia/pdaudiocf/modules.order;) > sound/pcmcia/modules.order
+make -f scripts/Makefile.build obj=fs/quota
+(cat /dev/null; ) > sound/pci/asihpi/modules.order
+make -f scripts/Makefile.build obj=sound/pci/au88x0
+(cat /dev/null; ) > fs/quota/modules.order
+make -f scripts/Makefile.build obj=fs/ramfs
+(cat /dev/null; ) > sound/pci/au88x0/modules.order
+make -f scripts/Makefile.build obj=sound/pci/aw2
+(cat /dev/null; ) > sound/pci/aw2/modules.order
+make -f scripts/Makefile.build obj=sound/pci/ca0106
+(cat /dev/null; ) > fs/ramfs/modules.order
+make -f scripts/Makefile.build obj=fs/romfs
+(cat /dev/null; ) > sound/pci/ca0106/modules.order
+make -f scripts/Makefile.build obj=sound/pci/cs46xx
+(cat /dev/null; ) > fs/proc/modules.order
+(cat /dev/null; ) > sound/pci/cs46xx/modules.order
+(cat /dev/null; ) > fs/romfs/modules.order
+make -f scripts/Makefile.build obj=fs/sysfs
+make -f scripts/Makefile.build obj=sound/pci/cs5535audio
+make -f scripts/Makefile.build obj=fs/sysv
+(cat /dev/null; ) > sound/pci/cs5535audio/modules.order
+make -f scripts/Makefile.build obj=sound/pci/ctxfi
+(cat /dev/null; ) > drivers/gpu/pvr/modules.order
+(cat /dev/null;   cat drivers/gpu/drm/modules.order;   cat drivers/gpu/vga/modules.order;   cat drivers/gpu/pvr/modules.order;) > drivers/gpu/modules.order
+make -f scripts/Makefile.build obj=drivers/ieee802154
+(cat /dev/null; ) > sound/pci/ctxfi/modules.order
+(cat /dev/null; ) > fs/sysfs/modules.order
+make -f scripts/Makefile.build obj=sound/pci/echoaudio
+make -f scripts/Makefile.build obj=firmware
+(cat /dev/null; ) > drivers/ieee802154/modules.order
+make -f scripts/Makefile.build obj=drivers/input
+(cat /dev/null; ) > sound/pci/echoaudio/modules.order
+make -f scripts/Makefile.build obj=sound/pci/emu10k1
+(cat /dev/null; ) > fs/sysv/modules.order
+(cat /dev/null;   cat fs/notify/modules.order;   cat fs/quota/modules.order;   cat fs/proc/modules.order;   cat fs/partitions/modules.order;   cat fs/sysfs/modules.order;   cat fs/devpts/modules.order;   cat fs/ext2/modules.order;   cat fs/ext4/modules.order;   cat fs/jbd2/modules.order;   cat fs/cramfs/modules.order;   cat fs/ramfs/modules.order;   cat fs/fat/modules.order;   cat fs/nls/modules.order;   cat fs/sysv/modules.order;   cat fs/cifs/modules.order;   cat fs/romfs/modules.order;   cat fs/fuse/modules.order;   cat fs/debugfs/modules.order;) > fs/modules.order
+(cat /dev/null; ) > sound/pci/emu10k1/modules.order
+make -f scripts/Makefile.build obj=sound/pci/hda
+(cat /dev/null; ) > sound/pci/hda/modules.order
+make -f scripts/Makefile.build obj=sound/pci/ice1712
+make -f scripts/Makefile.build obj=drivers/input/keyboard
+(cat /dev/null; ) > sound/pci/ice1712/modules.order
+make -f scripts/Makefile.build obj=sound/pci/korg1212
+(cat /dev/null; ) > sound/pci/korg1212/modules.order
+(cat /dev/null; ) > drivers/input/keyboard/modules.order
+make -f scripts/Makefile.build obj=sound/pci/lx6464es
+make -f scripts/Makefile.build obj=net
+(cat /dev/null; ) > sound/pci/lx6464es/modules.order
+make -f scripts/Makefile.build obj=drivers/input/misc
+make -f scripts/Makefile.build obj=sound/pci/mixart
+(cat /dev/null; ) > firmware/modules.order
+make -f scripts/Makefile.build obj=sound/pci/nm256
+(cat /dev/null; ) > sound/pci/mixart/modules.order
+(cat /dev/null; ) > sound/pci/nm256/modules.order
+make -f scripts/Makefile.build obj=sound/ppc
+make -f scripts/Makefile.build obj=sound/pci/oxygen
+(cat /dev/null; ) > sound/ppc/modules.order
+make -f scripts/Makefile.build obj=sound/pci/pcxhr
+(cat /dev/null; ) > sound/pci/oxygen/modules.order
+make -f scripts/Makefile.build obj=arch/arm/lib
+(cat /dev/null; ) > sound/pci/pcxhr/modules.order
+make -f scripts/Makefile.build obj=sound/pci/riptide
+(cat /dev/null; ) > sound/pci/riptide/modules.order
+make -f scripts/Makefile.build obj=sound/pci/rme9652
+(cat /dev/null; ) > drivers/input/misc/modules.order
+make -f scripts/Makefile.build obj=drivers/input/touchscreen
+(cat /dev/null; ) > sound/pci/rme9652/modules.order
+make -f scripts/Makefile.build obj=net/802
+make -f scripts/Makefile.build obj=sound/pci/trident
+(cat /dev/null; ) > net/802/modules.order
+make -f scripts/Makefile.build obj=net/bluetooth
+(cat /dev/null; ) > sound/pci/trident/modules.order
+(cat /dev/null; ) > drivers/input/touchscreen/modules.order
+make -f scripts/Makefile.build obj=sound/pci/vx222
+(cat /dev/null;   cat drivers/input/keyboard/modules.order;   cat drivers/input/touchscreen/modules.order;   cat drivers/input/misc/modules.order;) > drivers/input/modules.order
+make -f scripts/Makefile.build obj=drivers/input/serio
+(cat /dev/null; ) > sound/pci/vx222/modules.order
+make -f scripts/Makefile.build obj=sound/pci/ymfpci
+(cat /dev/null; ) > drivers/input/serio/modules.order
+make -f scripts/Makefile.build obj=drivers/leds
+(cat /dev/null; ) > sound/pci/ymfpci/modules.order
+(cat /dev/null;   cat sound/pci/ac97/modules.order;   cat sound/pci/ali5451/modules.order;   cat sound/pci/asihpi/modules.order;   cat sound/pci/au88x0/modules.order;   cat sound/pci/aw2/modules.order;   cat sound/pci/ctxfi/modules.order;   cat sound/pci/ca0106/modules.order;   cat sound/pci/cs46xx/modules.order;   cat sound/pci/cs5535audio/modules.order;   cat sound/pci/lx6464es/modules.order;   cat sound/pci/echoaudio/modules.order;   cat sound/pci/emu10k1/modules.order;   cat sound/pci/hda/modules.order;   cat sound/pci/ice1712/modules.order;   cat sound/pci/korg1212/modules.order;   cat sound/pci/mixart/modules.order;   cat sound/pci/nm256/modules.order;   cat sound/pci/oxygen/modules.order;   cat sound/pci/pcxhr/modules.order;   cat sound/pci/riptide/modules.order;   cat sound/pci/rme9652/modules.order;   cat sound/pci/trident/modules.order;   cat sound/pci/ymfpci/modules.order;   cat sound/pci/vx222/modules.order;) > sound/pci/modules.order
+(cat /dev/null; ) > drivers/leds/modules.order
+make -f scripts/Makefile.build obj=drivers/level
+make -f scripts/Makefile.build obj=sound/sh
+(cat /dev/null; ) > drivers/level/modules.order
+make -f scripts/Makefile.build obj=net/bluetooth/rfcomm
+(cat /dev/null; ) > sound/sh/modules.order
+make -f scripts/Makefile.build obj=drivers/lguest
+make -f scripts/Makefile.build obj=sound/soc
+(cat /dev/null; ) > drivers/lguest/modules.order
+make -f scripts/Makefile.build obj=drivers/macintosh
+(cat /dev/null; ) > drivers/macintosh/modules.order
+make -f scripts/Makefile.build obj=drivers/md
+(cat /dev/null; ) > net/bluetooth/rfcomm/modules.order
+(cat /dev/null;   cat net/bluetooth/rfcomm/modules.order;) > net/bluetooth/modules.order
+make -f scripts/Makefile.build obj=net/core
+(cat /dev/null; ) > arch/arm/lib/modules.order
+make -f scripts/Makefile.build obj=lib
+make -f scripts/Makefile.build obj=sound/soc/atmel
+(cat /dev/null; ) > drivers/md/modules.order
+make -f scripts/Makefile.build obj=drivers/media
+(cat /dev/null; ) > sound/soc/atmel/modules.order
+make -f scripts/Makefile.build obj=sound/soc/au1x
+make -f scripts/Makefile.build obj=drivers/media/IR
+(cat /dev/null; ) > sound/soc/au1x/modules.order
+make -f scripts/Makefile.build obj=sound/soc/blackfin
+make -f scripts/Makefile.build obj=drivers/media/IR/keymaps
+(cat /dev/null; ) > drivers/media/IR/keymaps/modules.order
+(cat /dev/null;   cat drivers/media/IR/keymaps/modules.order;) > drivers/media/IR/modules.order
+make -f scripts/Makefile.build obj=drivers/media/common
+(cat /dev/null; ) > sound/soc/blackfin/modules.order
+make -f scripts/Makefile.build obj=sound/soc/codecs
+make -f scripts/Makefile.build obj=drivers/media/common/tuners
+(cat /dev/null; ) > sound/soc/codecs/modules.order
+make -f scripts/Makefile.build obj=sound/soc/davinci
+(cat /dev/null; ) > drivers/media/common/tuners/modules.order
+(cat /dev/null;   cat drivers/media/common/tuners/modules.order;) > drivers/media/common/modules.order
+make -f scripts/Makefile.build obj=drivers/media/radio
+(cat /dev/null; ) > sound/soc/davinci/modules.order
+make -f scripts/Makefile.build obj=sound/soc/fsl
+(cat /dev/null; ) > drivers/media/radio/modules.order
+make -f scripts/Makefile.build obj=drivers/media/video
+(cat /dev/null; ) > net/core/modules.order
+make -f scripts/Makefile.build obj=net/ethernet
+(cat /dev/null; ) > sound/soc/fsl/modules.order
+make -f scripts/Makefile.build obj=sound/soc/imx
+(cat /dev/null; ) > net/ethernet/modules.order
+make -f scripts/Makefile.build obj=net/ieee802154
+(cat /dev/null; ) > sound/soc/imx/modules.order
+make -f scripts/Makefile.build obj=sound/soc/omap
+(cat /dev/null; ) > net/ieee802154/modules.order
+make -f scripts/Makefile.build obj=net/ipv4
+(cat /dev/null; ) > sound/soc/omap/modules.order
+make -f scripts/Makefile.build obj=sound/soc/pxa
+make -f scripts/Makefile.build obj=drivers/media/video/samsung
+(cat /dev/null; ) > sound/soc/pxa/modules.order
+make -f scripts/Makefile.build obj=sound/soc/s3c24xx
+make -f scripts/Makefile.build obj=drivers/media/video/samsung/fimc
+(cat /dev/null; ) > drivers/media/video/samsung/fimc/modules.order
+(cat /dev/null; ) > sound/soc/s3c24xx/modules.order
+make -f scripts/Makefile.build obj=drivers/media/video/samsung/jpeg_v2
+make -f scripts/Makefile.build obj=sound/soc/s6000
+make -f scripts/Makefile.build obj=lib/reed_solomon
+(cat /dev/null; ) > sound/soc/s6000/modules.order
+make -f scripts/Makefile.build obj=sound/soc/sh
+(cat /dev/null; ) > lib/reed_solomon/modules.order
+make -f scripts/Makefile.build obj=lib/zlib_deflate
+(cat /dev/null; ) > sound/soc/sh/modules.order
+(cat /dev/null; ) > drivers/media/video/samsung/jpeg_v2/modules.order
+make -f scripts/Makefile.build obj=sound/soc/txx9
+make -f scripts/Makefile.build obj=drivers/media/video/samsung/mfc50
+(cat /dev/null; ) > sound/soc/txx9/modules.order
+(cat /dev/null;   cat sound/soc/codecs/modules.order;   cat sound/soc/atmel/modules.order;   cat sound/soc/au1x/modules.order;   cat sound/soc/blackfin/modules.order;   cat sound/soc/davinci/modules.order;   cat sound/soc/fsl/modules.order;   cat sound/soc/imx/modules.order;   cat sound/soc/omap/modules.order;   cat sound/soc/pxa/modules.order;   cat sound/soc/s3c24xx/modules.order;   cat sound/soc/s6000/modules.order;   cat sound/soc/sh/modules.order;   cat sound/soc/txx9/modules.order;) > sound/soc/modules.order
+(cat /dev/null; ) > lib/zlib_deflate/modules.order
+make -f scripts/Makefile.build obj=lib/zlib_inflate
+make -f scripts/Makefile.build obj=sound/sparc
+(cat /dev/null; ) > drivers/media/video/samsung/mfc50/modules.order
+(cat /dev/null;   cat drivers/media/video/samsung/fimc/modules.order;   cat drivers/media/video/samsung/mfc50/modules.order;   cat drivers/media/video/samsung/jpeg_v2/modules.order;) > drivers/media/video/samsung/modules.order
+(cat /dev/null;   cat drivers/media/video/samsung/modules.order;) > drivers/media/video/modules.order
+(cat /dev/null; ) > lib/zlib_inflate/modules.order
+(cat /dev/null; ) > sound/sparc/modules.order
+(cat /dev/null;   cat drivers/media/common/modules.order;   cat drivers/media/IR/modules.order;   cat drivers/media/video/modules.order;   cat drivers/media/radio/modules.order;) > drivers/media/modules.order
+make -f scripts/Makefile.build obj=drivers/mfd
+make -f scripts/Makefile.build obj=sound/spi
+(cat /dev/null;   cat lib/zlib_inflate/modules.order;   cat lib/zlib_deflate/modules.order;   cat lib/reed_solomon/modules.order;) > lib/modules.order
+make -f scripts/Makefile.build obj=drivers/misc
+(cat /dev/null; ) > sound/spi/modules.order
+make -f scripts/Makefile.build obj=sound/synth
+make -f scripts/Makefile.build obj=net/ipv4/netfilter
+(cat /dev/null; ) > sound/synth/modules.order
+make -f scripts/Makefile.build obj=sound/usb
+make -f scripts/Makefile.build obj=sound/usb/caiaq
+(cat /dev/null; ) > drivers/mfd/modules.order
+(cat /dev/null; ) > sound/usb/caiaq/modules.order
+make -f scripts/Makefile.build obj=drivers/mmc
+make -f scripts/Makefile.build obj=sound/usb/misc
+make -f scripts/Makefile.build obj=drivers/misc/cb710
+(cat /dev/null; ) > sound/usb/misc/modules.order
+make -f scripts/Makefile.build obj=sound/usb/usx2y
+make -f scripts/Makefile.build obj=drivers/mmc/card
+(cat /dev/null; ) > sound/usb/usx2y/modules.order
+(cat /dev/null;   cat sound/usb/misc/modules.order;   cat sound/usb/usx2y/modules.order;   cat sound/usb/caiaq/modules.order;) > sound/usb/modules.order
+(cat /dev/null; ) > drivers/misc/cb710/modules.order
+(cat /dev/null;   cat sound/core/modules.order;   cat sound/i2c/modules.order;   cat sound/drivers/modules.order;   cat sound/isa/modules.order;   cat sound/pci/modules.order;   cat sound/ppc/modules.order;   cat sound/arm/modules.order;   cat sound/sh/modules.order;   cat sound/synth/modules.order;   cat sound/usb/modules.order;   cat sound/sparc/modules.order;   cat sound/spi/modules.order;   cat sound/parisc/modules.order;   cat sound/pcmcia/modules.order;   cat sound/mips/modules.order;   cat sound/soc/modules.order;   cat sound/atmel/modules.order;) > sound/modules.order
+make -f scripts/Makefile.build obj=drivers/misc/eeprom
+(cat /dev/null; ) > drivers/misc/eeprom/modules.order
+make -f scripts/Makefile.build obj=drivers/misc/vibetonz
+make -f scripts/Makefile.build obj=drivers/mmc/core
+(cat /dev/null;   echo kernel/drivers/misc/vibetonz/vibrator.ko;) > drivers/misc/vibetonz/modules.order
+(cat /dev/null;   cat drivers/misc/eeprom/modules.order;   cat drivers/misc/cb710/modules.order;   cat drivers/misc/vibetonz/modules.order;) > drivers/misc/modules.order
+make -f scripts/Makefile.build obj=drivers/net
+(cat /dev/null; ) > drivers/mmc/card/modules.order
+make -f scripts/Makefile.build obj=drivers/mmc/host
+(cat /dev/null; ) > drivers/mmc/core/modules.order
+make -f scripts/Makefile.build obj=net/ipv6
+(cat /dev/null; ) > drivers/mmc/host/modules.order
+(cat /dev/null;   cat drivers/mmc/core/modules.order;   cat drivers/mmc/card/modules.order;   cat drivers/mmc/host/modules.order;) > drivers/mmc/modules.order
+make -f scripts/Makefile.build obj=drivers/onedram
+make -f scripts/Makefile.build obj=drivers/onedram/dpram_recovery
+(cat /dev/null;   echo kernel/drivers/onedram/dpram_recovery/dpram_recovery.ko;) > drivers/onedram/dpram_recovery/modules.order
+(cat /dev/null;   echo kernel/drivers/onedram/dpram/dpram.ko;   cat drivers/onedram/dpram_recovery/modules.order;) > drivers/onedram/modules.order
+(cat /dev/null; ) > net/ipv4/netfilter/modules.order
+make -f scripts/Makefile.build obj=drivers/platform
+(cat /dev/null;   cat net/ipv4/netfilter/modules.order;) > net/ipv4/modules.order
+make -f scripts/Makefile.build obj=net/key
+make -f scripts/Makefile.build obj=drivers/net/arm
+(cat /dev/null; ) > drivers/platform/modules.order
+make -f scripts/Makefile.build obj=drivers/net/wireless
+(cat /dev/null; ) > drivers/net/arm/modules.order
+make -f scripts/Makefile.build obj=drivers/net/wireless/bcm4329/victory
+make -f scripts/Makefile.build obj=drivers/power
+(cat /dev/null; ) > net/key/modules.order
+make -f scripts/Makefile.build obj=net/netfilter
+(cat /dev/null; ) > drivers/power/modules.order
+make -f scripts/Makefile.build obj=drivers/regulator
+make -f scripts/Makefile.build obj=net/ipv6/netfilter
+(cat /dev/null; ) > net/ipv6/netfilter/modules.order
+(cat /dev/null; ) > drivers/regulator/modules.order
+make -f scripts/Makefile.build obj=net/netlink
+(cat /dev/null;   cat net/ipv6/netfilter/modules.order;) > net/ipv6/modules.order
+make -f scripts/Makefile.build obj=net/packet
+(cat /dev/null;   echo kernel/drivers/net/wireless/bcm4329/victory/src/wl/sys/hotspot_event_monitoring.ko;   echo kernel/drivers/net/wireless/bcm4329/victory/dhd.ko;) > drivers/net/wireless/bcm4329/victory/modules.order
+make -f scripts/Makefile.build obj=drivers/net/wireless/wimax
+(cat /dev/null; ) > net/netlink/modules.order
+make -f scripts/Makefile.build obj=net/phonet
+(cat /dev/null; ) > net/packet/modules.order
+make -f scripts/Makefile.build obj=net/rfkill
+(cat /dev/null; ) > net/rfkill/modules.order
+make -f scripts/Makefile.build obj=net/sched
+(cat /dev/null; ) > net/phonet/modules.order
+make -f scripts/Makefile.build obj=net/unix
+(cat /dev/null;   echo kernel/drivers/net/wireless/wimax/cmc7xx_sdio.ko;) > drivers/net/wireless/wimax/modules.order
+make -f scripts/Makefile.build obj=drivers/net/wireless/wimaxgpio
+(cat /dev/null; ) > net/unix/modules.order
+make -f scripts/Makefile.build obj=net/wireless
+(cat /dev/null; ) > net/wireless/modules.order
+make -f scripts/Makefile.build obj=drivers/rtc
+(cat /dev/null;   echo kernel/drivers/net/wireless/wimaxgpio/wimax_gpio.ko;) > drivers/net/wireless/wimaxgpio/modules.order
+(cat /dev/null;   cat drivers/net/wireless/bcm4329/victory/modules.order;   cat drivers/net/wireless/wimax/modules.order;   cat drivers/net/wireless/wimaxgpio/modules.order;) > drivers/net/wireless/modules.order
+(cat /dev/null;   cat drivers/net/arm/modules.order;   cat drivers/net/wireless/modules.order;) > drivers/net/modules.order
+make -f scripts/Makefile.build obj=drivers/scsi
+(cat /dev/null; ) > net/sched/modules.order
+make -f scripts/Makefile.build obj=net/xfrm
+(cat /dev/null; ) > net/xfrm/modules.order
+make -f scripts/Makefile.build obj=drivers/serial
+make -f scripts/Makefile.build obj=drivers/scsi/arm
+(cat /dev/null; ) > drivers/scsi/arm/modules.order
+(cat /dev/null;   cat drivers/scsi/arm/modules.order;   echo kernel/drivers/scsi/scsi_wait_scan.ko;) > drivers/scsi/modules.order
+(cat /dev/null; ) > drivers/serial/modules.order
+make -f scripts/Makefile.build obj=drivers/spi
+make -f scripts/Makefile.build obj=drivers/staging
+(cat /dev/null; ) > net/netfilter/modules.order
+(cat /dev/null;   cat net/core/modules.order;   cat net/ethernet/modules.order;   cat net/802/modules.order;   cat net/sched/modules.order;   cat net/netlink/modules.order;   cat net/netfilter/modules.order;   cat net/ipv4/modules.order;   cat net/xfrm/modules.order;   cat net/unix/modules.order;   cat net/ipv6/modules.order;   cat net/packet/modules.order;   cat net/key/modules.order;   cat net/bluetooth/modules.order;   cat net/phonet/modules.order;   cat net/wireless/modules.order;   cat net/rfkill/modules.order;   cat net/ieee802154/modules.order;) > net/modules.order
+make -f scripts/Makefile.build obj=drivers/staging/android
+(cat /dev/null; ) > drivers/spi/modules.order
+make -f scripts/Makefile.build obj=drivers/switch
+make -f scripts/Makefile.build obj=drivers/tfsr
+(cat /dev/null; ) > drivers/switch/modules.order
+make -f scripts/Makefile.build obj=drivers/usb/gadget
+(cat /dev/null; ) > drivers/rtc/modules.order
+make -f scripts/Makefile.build obj=drivers/video
+(cat /dev/null; ) > drivers/staging/android/modules.order
+(cat /dev/null;   cat drivers/staging/android/modules.order;) > drivers/staging/modules.order
+make -f scripts/Makefile.build obj=drivers/video/backlight
+make -f scripts/Makefile.build obj=drivers/video/console
+(cat /dev/null; ) > drivers/usb/gadget/modules.order
+make -f scripts/Makefile.build obj=drivers/video/display
+(cat /dev/null; ) > drivers/video/console/modules.order
+make -f scripts/Makefile.build obj=drivers/video/omap2
+(cat /dev/null; ) > drivers/video/backlight/modules.order
+(cat /dev/null; ) > drivers/video/display/modules.order
+make -f scripts/Makefile.build obj=drivers/video/samsung
+make -f scripts/Makefile.build obj=drivers/video/omap2/displays
+make -f scripts/Makefile.build obj=drivers/video/omap2/dss
+(cat /dev/null; ) > drivers/video/omap2/dss/modules.order
+make -f scripts/Makefile.build obj=drivers/video/omap2/omapfb
+(cat /dev/null; ) > drivers/video/omap2/displays/modules.order
+(cat /dev/null; ) > drivers/video/omap2/omapfb/modules.order
+(cat /dev/null;   cat drivers/video/omap2/dss/modules.order;   cat drivers/video/omap2/omapfb/modules.order;   cat drivers/video/omap2/displays/modules.order;) > drivers/video/omap2/modules.order
+(cat /dev/null; ) > drivers/video/samsung/modules.order
+(cat /dev/null; ) > drivers/tfsr/modules.order
+(cat /dev/null;   cat drivers/video/console/modules.order;   cat drivers/video/backlight/modules.order;   cat drivers/video/display/modules.order;   cat drivers/video/samsung/modules.order;   cat drivers/video/omap2/modules.order;) > drivers/video/modules.order
+(cat /dev/null;   cat drivers/gpio/modules.order;   cat drivers/video/modules.order;   cat drivers/idle/modules.order;   cat drivers/regulator/modules.order;   cat drivers/char/modules.order;   cat drivers/gpu/modules.order;   cat drivers/serial/modules.order;   cat drivers/base/modules.order;   cat drivers/block/modules.order;   cat drivers/misc/modules.order;   cat drivers/mfd/modules.order;   cat drivers/macintosh/modules.order;   cat drivers/scsi/modules.order;   cat drivers/tfsr/modules.order;   cat drivers/spi/modules.order;   cat drivers/net/modules.order;   cat drivers/ieee1394/modules.order;   cat drivers/cdrom/modules.order;   cat drivers/auxdisplay/modules.order;   cat drivers/usb/gadget/modules.order;   cat drivers/input/serio/modules.order;   cat drivers/input/modules.order;   cat drivers/rtc/modules.order;   cat drivers/i2c/modules.order;   cat drivers/media/modules.order;   cat drivers/power/modules.order;   cat drivers/md/modules.order;   cat drivers/bluetooth/modules.order;   cat drivers/lguest/modules.order;   cat drivers/cpufreq/modules.order;   cat drivers/cpuidle/modules.order;   cat drivers/mmc/modules.order;   cat drivers/leds/modules.order;   cat drivers/switch/modules.order;   cat drivers/firmware/modules.order;   cat drivers/crypto/modules.order;   cat drivers/clocksource/modules.order;   cat drivers/staging/modules.order;   cat drivers/platform/modules.order;   cat drivers/ieee802154/modules.order;   cat drivers/level/modules.order;   cat drivers/onedram/modules.order;) > drivers/modules.order
+rm -f .old_version
+make -f scripts/Makefile.build obj=arch/arm/boot MACHINE=arch/arm/mach-s5pv210/ arch/arm/boot/zImage
+awk '!x[$0]++' /home/earthbound/.samurai/kernel/init/modules.order /home/earthbound/.samurai/kernel/usr/modules.order /home/earthbound/.samurai/kernel/arch/arm/kernel/modules.order /home/earthbound/.samurai/kernel/arch/arm/mm/modules.order /home/earthbound/.samurai/kernel/arch/arm/common/modules.order /home/earthbound/.samurai/kernel/arch/arm/mach-s5pv210/modules.order /home/earthbound/.samurai/kernel/arch/arm/plat-s5p/modules.order /home/earthbound/.samurai/kernel/arch/arm/plat-samsung/modules.order /home/earthbound/.samurai/kernel/arch/arm/vfp/modules.order /home/earthbound/.samurai/kernel/kernel/modules.order /home/earthbound/.samurai/kernel/mm/modules.order /home/earthbound/.samurai/kernel/fs/modules.order /home/earthbound/.samurai/kernel/ipc/modules.order /home/earthbound/.samurai/kernel/security/modules.order /home/earthbound/.samurai/kernel/crypto/modules.order /home/earthbound/.samurai/kernel/block/modules.order /home/earthbound/.samurai/kernel/drivers/modules.order /home/earthbound/.samurai/kernel/sound/modules.order /home/earthbound/.samurai/kernel/firmware/modules.order /home/earthbound/.samurai/kernel/net/modules.order /home/earthbound/.samurai/kernel/arch/arm/lib/modules.order /home/earthbound/.samurai/kernel/lib/modules.order > /home/earthbound/.samurai/kernel/modules.order
+make -f /home/earthbound/.samurai/kernel/scripts/Makefile.modpost
+  Kernel: arch/arm/boot/Image is ready
+make -f scripts/Makefile.build obj=arch/arm/boot/compressed arch/arm/boot/compressed/vmlinux
+  cat /home/earthbound/.samurai/kernel/arch/arm/lib/lib1funcs.S > arch/arm/boot/compressed/lib1funcs.S
+  /home/earthbound/prebuilt/linux-x86/toolchain/arm-eabi-4.4.0/bin/arm-eabi-gcc -Wp,-MD,arch/arm/boot/compressed/.lib1funcs.o.d  -nostdinc -isystem /home/earthbound/prebuilt/linux-x86/toolchain/arm-eabi-4.4.0/bin/../lib/gcc/arm-eabi/4.4.0/include -I/home/earthbound/.samurai/kernel/arch/arm/include -Iinclude  -include include/generated/autoconf.h -D__KERNEL__ -mlittle-endian -Iarch/arm/mach-s5pv210/include -Iarch/arm/plat-s5p/include -Iarch/arm/plat-samsung/include -D__ASSEMBLY__ -mabi=aapcs-linux -mno-thumb-interwork  -D__LINUX_ARM_ARCH__=7 -march=armv7-a  -include asm/unified.h -msoft-float -gdwarf-2     -Wa,-march=all   -c -o arch/arm/boot/compressed/lib1funcs.o arch/arm/boot/compressed/lib1funcs.S
+  scripts/mod/modpost   -o /home/earthbound/.samurai/kernel/Module.symvers    -S  -c -s
+  /home/earthbound/prebuilt/linux-x86/toolchain/arm-eabi-4.4.0/bin/arm-eabi-ld -EL    --defsym zreladdr=0x30008000 --defsym params_phys=0x30000100 -p --no-undefined -X -T arch/arm/boot/compressed/vmlinux.lds arch/arm/boot/compressed/head.o arch/arm/boot/compressed/piggy.gzip.o arch/arm/boot/compressed/misc.o arch/arm/boot/compressed/decompress.o arch/arm/boot/compressed/lib1funcs.o -o arch/arm/boot/compressed/vmlinux 
+make -f /home/earthbound/.samurai/kernel/scripts/Makefile.fwinst obj=firmware __fw_modbuild
+  /home/earthbound/prebuilt/linux-x86/toolchain/arm-eabi-4.4.0/bin/arm-eabi-objcopy -O binary -R .note -R .note.gnu.build-id -R .comment -S  arch/arm/boot/compressed/vmlinux arch/arm/boot/zImage
+  Kernel: arch/arm/boot/zImage is ready
